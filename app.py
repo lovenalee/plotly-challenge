@@ -56,7 +56,6 @@ def sample_metadata(sample):
 
     results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
 
-    # Create a dictionary entry for each row of metadata information
     sample_metadata = {}
     for result in results:
         sample_metadata["sample"] = result[0]
@@ -79,10 +78,8 @@ def samples(sample):
 
     sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
 
-    # Sort by sample
     sample_data.sort_values(by=sample, ascending=False, inplace=True)
 
-    # Format the data to send as json
     data = {
         "otu_ids": sample_data.otu_id.values.tolist(),
         "sample_values": sample_data[sample].values.tolist(),
