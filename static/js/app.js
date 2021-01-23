@@ -2,17 +2,17 @@
 //Create a function to read and get data
   function getData(id) {
   
-    d3.json("/plotly-challenge/samples.json").then((data) => {
+    d3.json("samples.json").then((data) => {
         console.log(data)
         
         var wfreq = data.metadata.map(d => d.wfreq)
         console.log(`Washing Freq: ${wfreq}`)
 
-        var samples = data.samples.filter(s => s.id.toString()===id)[0];
-        console.log(samples);
+        var samples = data.samples.filter(s => s.id.toString() === id)[0];
+        console.log(samples)
 
-        var SampleValues = samples.sample_values.slice(0, 10).reverse();
-        console.log(`Sample Values: ${SampleValues}`)
+        var sampleValues = (samples.sample_values.slice(0, 10)).reverse();
+        console.log(`Sample Values: ${sampleValues}`)
 
         var idValues = (samples.otu_ids.slice(0, 10)).reverse();
         console.log(`Id Values: ${idValues}`)
@@ -24,7 +24,7 @@
         var labels = samples.otu_labels.slice(0, 10);
 
         var trace = {
-            x: SampleValues,
+            x: sampleValues,
             y: otuid,
             text: labels,
             type:"bar",
@@ -44,4 +44,4 @@
         Plotly.newPlot("bar", data, layout);
     });
   }
- 
+  getData();
